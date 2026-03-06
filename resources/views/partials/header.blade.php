@@ -11,7 +11,8 @@
 
     <header class="nav-bar bg-white shadow">
         <nav class="nav-bar-container max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" class="nav-bar-title text-xl font-bold text-gray-800 hover:text-blue-600 transition">
+            <a href="{{ route('blog.index') }}" class="nav-bar-title text-xl font-bold text-gray-800 hover:text-blue-600
+            transition">
                 Blog
             </a>
 
