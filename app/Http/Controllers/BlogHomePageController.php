@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use App\Models\Post;
 use Illuminate\Contracts\View\View;
 
+/**
+ * Class BlogHomePageController
+ * @package App\Http\Controllers
+ */
 class BlogHomePageController extends Controller
 {
     /**
-     * @return Application|Factory|View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        return view('blogHomePage');
+        $posts = Post::where('status', true)
+            ->orderBy('published_at', 'desc')
+            ->paginate(9);
+
+        return view('blogHomePage', compact('posts'));
     }
 }
