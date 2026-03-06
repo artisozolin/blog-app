@@ -2061,6 +2061,7 @@ module.exports = {
 (__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./loginModal */ "./resources/js/loginModal.js");
 
 /***/ },
 
@@ -2097,6 +2098,38 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ },
+
+/***/ "./resources/js/loginModal.js"
+/*!************************************!*\
+  !*** ./resources/js/loginModal.js ***!
+  \************************************/
+() {
+
+var loginBtn = document.getElementById('loginBtn');
+var loginModal = document.getElementById('loginModal');
+var closeModal = document.getElementById('closeModal');
+loginBtn.addEventListener('click', function () {
+  loginModal.classList.remove('hidden');
+  loginModal.classList.add('flex');
+});
+closeModal.addEventListener('click', function () {
+  loginModal.classList.add('hidden');
+  loginModal.classList.remove('flex');
+});
+loginModal.addEventListener('click', function (e) {
+  if (e.target === loginModal) {
+    loginModal.classList.add('hidden');
+    loginModal.classList.remove('flex');
+  }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    loginModal.classList.add('hidden');
+    loginModal.classList.remove('flex');
+  }
+});
 
 /***/ },
 
