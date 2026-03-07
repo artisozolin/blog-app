@@ -2054,6 +2054,45 @@ module.exports = {
 
 /***/ },
 
+/***/ "./resources/js/addBlogModal.js"
+/*!**************************************!*\
+  !*** ./resources/js/addBlogModal.js ***!
+  \**************************************/
+() {
+
+var addBtn = document.getElementById("addPostBtn");
+var modal = document.getElementById("addPostModal");
+var closeBtn = document.getElementById("closeAddPost");
+var useUserName = document.getElementById('useUserName');
+var authorInput = document.getElementById('authorInput');
+var loggedUserName = document.getElementById('loggedUserName');
+if (addBtn) {
+  addBtn.addEventListener("click", function () {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  });
+}
+if (closeBtn) {
+  closeBtn.addEventListener("click", function () {
+    modal.classList.add("hidden");
+  });
+}
+if (useUserName && authorInput && loggedUserName) {
+  var updateAuthorField = function updateAuthorField() {
+    if (useUserName.checked) {
+      authorInput.value = loggedUserName.value;
+      authorInput.disabled = true;
+    } else {
+      authorInput.disabled = false;
+      authorInput.value = '';
+    }
+  };
+  updateAuthorField();
+  useUserName.addEventListener('change', updateAuthorField);
+}
+
+/***/ },
+
 /***/ "./resources/js/app.js"
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2062,6 +2101,7 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./loginModal */ "./resources/js/loginModal.js");
+__webpack_require__(/*! ./addBlogModal */ "./resources/js/addBlogModal.js");
 
 /***/ },
 
@@ -2110,22 +2150,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var loginBtn = document.getElementById('loginBtn');
 var loginModal = document.getElementById('loginModal');
 var closeModal = document.getElementById('closeModal');
-loginBtn.addEventListener('click', function () {
-  loginModal.classList.remove('hidden');
-  loginModal.classList.add('flex');
-});
-closeModal.addEventListener('click', function () {
-  loginModal.classList.add('hidden');
-  loginModal.classList.remove('flex');
-});
-loginModal.addEventListener('click', function (e) {
-  if (e.target === loginModal) {
+if (loginBtn && loginModal) {
+  loginBtn.addEventListener('click', function () {
+    loginModal.classList.remove('hidden');
+    loginModal.classList.add('flex');
+  });
+}
+if (closeModal && loginModal) {
+  closeModal.addEventListener('click', function () {
     loginModal.classList.add('hidden');
     loginModal.classList.remove('flex');
-  }
-});
+  });
+}
+if (loginModal) {
+  loginModal.addEventListener('click', function (e) {
+    if (e.target === loginModal) {
+      loginModal.classList.add('hidden');
+      loginModal.classList.remove('flex');
+    }
+  });
+}
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') {
+  if (e.key === 'Escape' && loginModal) {
     loginModal.classList.add('hidden');
     loginModal.classList.remove('flex');
   }
