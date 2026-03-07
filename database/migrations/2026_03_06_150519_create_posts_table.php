@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->string('author_name');
             $table->boolean('status')->default(true);
             $table->timestamp('published_at');
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

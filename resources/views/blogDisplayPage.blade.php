@@ -5,11 +5,9 @@
             {{ $post->title }}
         </h1>
         @if($post->image)
-            <img
-                src="{{ $post->image }}"
-                alt="{{ $post->title }}"
-                class="blog-display-image w-full h-auto rounded-lg mb-6 object-cover"
-            >
+            <img src="{{ asset('storage/' . $post->image) }}"
+                 alt="{{ $post->title }}"
+                 class="blog-display-image w-full h-auto rounded-lg mb-6 object-cover">
         @endif
         <div class="blog-display-description text-gray-700 leading-relaxed mb-6">
             {{ $post->content }}

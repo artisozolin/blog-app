@@ -9,7 +9,7 @@
                 <div class="blog-post bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden">
                     <a href="/blog/{{ $post->slug }}">
                         @if($post->image)
-                            <img src="{{ $post->image }}"
+                            <img src="{{ asset('storage/' . $post->image) }}"
                                  alt="{{ $post->title }}"
                                  class="blog-post-image w-full h-48 object-cover">
                         @else
@@ -33,10 +33,10 @@
                         <p class="blog-post-description text-gray-600 text-sm mb-4 line-clamp-3">
                             {{ $post->content }}
                         </p>
-                        <div class="flex justify-between items-center">
-                        <span class="text-xs text-gray-500">
-                            By {{ $post->author_name }}
-                        </span>
+                        <div class="blog-post-footer flex justify-between items-center">
+                            <span class="blog-post-author text-xs text-gray-500">
+                                By {{ $post->author_name }}
+                            </span>
                             <a href="/blog/{{ $post->slug }}"
                                class="blog-post-cta text-blue-600 font-medium hover:underline">
                                 Read more
