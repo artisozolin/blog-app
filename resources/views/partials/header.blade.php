@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <title>Blog app</title>
 </head>
@@ -97,24 +98,24 @@
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Title</label>
                     <input type="text" name="title" required
-                           class="w-full border rounded px-3 py-2">
+                           class="add-post-input w-full border rounded px-3 py-2">
                 </div>
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Image</label>
                     <input type="file" name="image" accept="image/*"
-                           class="w-full border rounded px-3 py-2">
+                           class="add-post-input w-full border rounded px-3 py-2">
                 </div>
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Content</label>
                     <textarea name="content" rows="5"
-                              class="w-full border rounded px-3 py-2"></textarea>
+                              class="add-post-input w-full border rounded px-3 py-2"></textarea>
                 </div>
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Status</label>
-                    <select name="status" class="w-full border rounded px-3 py-2">
+                    <select name="status" class="add-post-select w-full border rounded px-3 py-2">
                         <option value="1">Active</option>
                         <option value="0">Disabled</option>
                     </select>
@@ -123,7 +124,7 @@
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Publish Date</label>
                     <input type="date" name="published_at"
-                           class="w-full border rounded px-3 py-2">
+                           class="add-post-input w-full border rounded px-3 py-2">
                 </div>
 
                 <input type="hidden" id="loggedUserName" value="{{ auth()->user()->username ?? '' }}">
@@ -131,7 +132,7 @@
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Author Name</label>
                     <input id="authorInput" type="text" name="author_name"
-                           class="w-full border rounded px-3 py-2">
+                           class="add-post-input w-full border rounded px-3 py-2">
                 </div>
 
                 <div class="add-post-checkbox-container mb-4 flex items-center">

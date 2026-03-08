@@ -11,3 +11,5 @@ Route::get('/blog/{slug}', [BlogDisplayPageController::class, 'show'])->name('bl
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
+Route::put('/posts/{post}', [PostController::class, 'update']);
+Route::delete('/posts/{post}', [PostController::class, 'destroy']);

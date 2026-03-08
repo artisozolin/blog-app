@@ -2102,6 +2102,7 @@ if (useUserName && authorInput && loggedUserName) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./loginModal */ "./resources/js/loginModal.js");
 __webpack_require__(/*! ./addBlogModal */ "./resources/js/addBlogModal.js");
+__webpack_require__(/*! ./editBlogModal */ "./resources/js/editBlogModal.js");
 
 /***/ },
 
@@ -2138,6 +2139,61 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ },
+
+/***/ "./resources/js/editBlogModal.js"
+/*!***************************************!*\
+  !*** ./resources/js/editBlogModal.js ***!
+  \***************************************/
+() {
+
+var editButtons = document.querySelectorAll('.editPostBtn');
+var editModal = document.getElementById('editPostModal');
+var closeEditPost = document.getElementById('closeEditPost');
+var editForm = document.getElementById('editPostForm');
+var editTitle = document.getElementById('editTitle');
+var editContent = document.getElementById('editContent');
+var editStatus = document.getElementById('editStatus');
+var editDate = document.getElementById('editDate');
+var editAuthor = document.getElementById('editAuthor');
+var deleteBtn = document.getElementById('deletePostBtn');
+editButtons.forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var id = btn.dataset.id;
+    editTitle.value = btn.dataset.title;
+    editContent.value = btn.dataset.content;
+    editStatus.value = btn.dataset.status;
+    editDate.value = btn.dataset.date;
+    editAuthor.value = btn.dataset.author;
+    editForm.action = "/posts/".concat(id);
+    deleteBtn.onclick = function () {
+      if (!confirm("Delete this post?")) return;
+      var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = editForm.action;
+      var csrf = document.createElement('input');
+      csrf.type = 'hidden';
+      csrf.name = '_token';
+      csrf.value = token;
+      var method = document.createElement('input');
+      method.type = 'hidden';
+      method.name = '_method';
+      method.value = 'DELETE';
+      form.appendChild(csrf);
+      form.appendChild(method);
+      document.body.appendChild(form);
+      form.submit();
+    };
+    editModal.classList.remove('hidden');
+    editModal.classList.add('flex');
+  });
+});
+closeEditPost.addEventListener('click', function () {
+  editModal.classList.add('hidden');
+  editModal.classList.remove('flex');
+});
 
 /***/ },
 
