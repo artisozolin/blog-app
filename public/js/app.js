@@ -2103,6 +2103,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./loginModal */ "./resources/js/loginModal.js");
 __webpack_require__(/*! ./addBlogModal */ "./resources/js/addBlogModal.js");
 __webpack_require__(/*! ./editBlogModal */ "./resources/js/editBlogModal.js");
+__webpack_require__(/*! ./frontendValidation */ "./resources/js/frontendValidation.js");
 
 /***/ },
 
@@ -2193,6 +2194,181 @@ editButtons.forEach(function (btn) {
 closeEditPost.addEventListener('click', function () {
   editModal.classList.add('hidden');
   editModal.classList.remove('flex');
+});
+
+/***/ },
+
+/***/ "./resources/js/frontendValidation.js"
+/*!********************************************!*\
+  !*** ./resources/js/frontendValidation.js ***!
+  \********************************************/
+() {
+
+document.addEventListener('DOMContentLoaded', function () {
+  var forbiddenPattern = /['";=<>]|--/;
+  function validateField(input, config, touched) {
+    var value = input.value.trim();
+    var errorElement = document.getElementById(config.errorId);
+    var errorMessage = "";
+    if (config.required && value === "") {
+      errorMessage = "This field cannot be empty.";
+    } else if (forbiddenPattern.test(value)) {
+      errorMessage = "Invalid characters detected.";
+    } else if (config.minLength && value.length < config.minLength) {
+      errorMessage = "Minimum ".concat(config.minLength, " characters required.");
+    } else if (config.maxLength && value.length > config.maxLength) {
+      errorMessage = "Maximum ".concat(config.maxLength, " characters allowed.");
+    } else if (config.type === "date" && value !== "") {
+      var selectedDate = new Date(value);
+      if (isNaN(selectedDate.getTime())) {
+        errorMessage = "Invalid date.";
+      }
+    } else if (config.type === "image" && input.files.length > 0) {
+      var file = input.files[0];
+      var allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowedTypes.includes(file.type)) {
+        errorMessage = "Only JPG, PNG, WEBP allowed.";
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        errorMessage = "Image must be under 2MB.";
+      }
+    }
+    var isValid = errorMessage === "";
+    if (!isValid && touched[input.id]) {
+      input.classList.add('invalid-input');
+      errorElement.textContent = errorMessage;
+      errorElement.classList.remove('hidden');
+    } else {
+      input.classList.remove('invalid-input');
+      errorElement.classList.add('hidden');
+    }
+    return isValid;
+  }
+  function updateSubmitButtonState(isFormValid, submitButton) {
+    if (!submitButton) return;
+    submitButton.disabled = !isFormValid;
+    if (isFormValid) {
+      submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+      submitButton.classList.add('bg-blue-600');
+    } else {
+      submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+      submitButton.classList.remove('bg-blue-600');
+    }
+  }
+  function setupFormValidation(_ref) {
+    var formId = _ref.formId,
+      fields = _ref.fields,
+      submitButtonId = _ref.submitButtonId;
+    var form = document.getElementById(formId);
+    if (!form) return;
+    var submitButton = document.getElementById(submitButtonId);
+    var inputs = fields.map(function (f) {
+      return document.getElementById(f.id);
+    }).filter(Boolean);
+    var touched = Object.fromEntries(fields.map(function (f) {
+      return [f.id, false];
+    }));
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+    }
+    inputs.forEach(function (input) {
+      input.addEventListener('input', function () {
+        if (!touched[input.id]) {
+          touched[input.id] = true;
+        }
+        var isValid = fields.map(function (field) {
+          return validateField(document.getElementById(field.id), field, touched);
+        }).every(Boolean);
+        updateSubmitButtonState(isValid, submitButton);
+      });
+    });
+    form.addEventListener('submit', function (e) {
+      fields.forEach(function (field) {
+        return touched[field.id] = true;
+      });
+      var isValid = fields.map(function (field) {
+        return validateField(document.getElementById(field.id), field, touched);
+      }).every(Boolean);
+      updateSubmitButtonState(isValid, submitButton);
+      if (!isValid) e.preventDefault();
+    });
+  }
+  setupFormValidation({
+    formId: 'loginForm',
+    submitButtonId: 'loginSubmit',
+    fields: [{
+      id: 'loginUsername',
+      errorId: 'loginUsernameError',
+      required: true,
+      minLength: 3,
+      maxLength: 50
+    }, {
+      id: 'loginPassword',
+      errorId: 'loginPasswordError',
+      required: true,
+      minLength: 4,
+      maxLength: 100
+    }]
+  });
+  setupFormValidation({
+    formId: 'addPostForm',
+    submitButtonId: 'addSubmit',
+    fields: [{
+      id: 'addTitle',
+      errorId: 'addTitleError',
+      required: true,
+      minLength: 5,
+      maxLength: 255
+    }, {
+      id: 'addContent',
+      errorId: 'addContentError',
+      required: true,
+      minLength: 20
+    }, {
+      id: 'authorInput',
+      errorId: 'authorError',
+      required: true,
+      maxLength: 255
+    }, {
+      id: 'addImage',
+      errorId: 'imageError',
+      type: 'image'
+    }, {
+      id: 'addDate',
+      errorId: 'dateError',
+      type: 'date'
+    }]
+  });
+  setupFormValidation({
+    formId: 'editPostForm',
+    submitButtonId: 'editSubmit',
+    fields: [{
+      id: 'editTitle',
+      errorId: 'editTitleError',
+      required: true,
+      minLength: 5,
+      maxLength: 255
+    }, {
+      id: 'editContent',
+      errorId: 'editContentError',
+      required: true,
+      minLength: 20
+    }, {
+      id: 'editAuthor',
+      errorId: 'editAuthorError',
+      required: true,
+      maxLength: 255
+    }, {
+      id: 'editImage',
+      errorId: 'editImageError',
+      type: 'image'
+    }, {
+      id: 'editDate',
+      errorId: 'editDateError',
+      type: 'date'
+    }]
+  });
 });
 
 /***/ },

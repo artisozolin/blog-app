@@ -55,24 +55,33 @@
 
             <h2 class="login-title text-lg font-semibold mb-4">Login</h2>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form id="loginForm" method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <div class="login-username-container mb-4">
                     <label class="login-title block text-sm font-medium text-gray-700 mb-1">Username</label>
-                    <input type="text" name="username" required
+                    <input id="loginUsername"
+                           type="text"
+                           name="username"
+                           required
                            class="login-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none
                            focus:ring focus:ring-blue-200">
+                    <p id="loginUsernameError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="login-password-container mb-4">
                     <label class="login-title block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" name="password" required
+                    <input id="loginPassword"
+                           type="password"
+                           name="password"
+                           required
                            class="login-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none
                            focus:ring focus:ring-blue-200">
+                    <p id="loginPasswordError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
-                <button type="submit"
+                <button id="loginSubmit"
+                        type="submit"
                         class="login-button w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
                     Login
                 </button>
@@ -92,25 +101,36 @@
 
             <h2 class="add-post-title text-lg font-semibold mb-4">Add Blog Post</h2>
 
-            <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+            <form id="addPostForm" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Title</label>
-                    <input type="text" name="title" required
+                    <input id="addTitle"
+                           type="text"
+                           name="title"
+                           required
                            class="add-post-input w-full border rounded px-3 py-2">
+                    <p id="addTitleError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Image</label>
-                    <input type="file" name="image" accept="image/*"
+                    <input id="addImage"
+                           type="file"
+                           name="image"
+                           accept="image/*"
                            class="add-post-input w-full border rounded px-3 py-2">
+                    <p id="imageError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Content</label>
-                    <textarea name="content" rows="5"
+                    <textarea id="addContent"
+                              name="content"
+                              rows="5"
                               class="add-post-input w-full border rounded px-3 py-2"></textarea>
+                    <p id="addContentError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="add-post-input-container mb-3">
@@ -123,24 +143,34 @@
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Publish Date</label>
-                    <input type="date" name="published_at"
+                    <input id="addDate"
+                           type="date"
+                           name="published_at"
                            class="add-post-input w-full border rounded px-3 py-2">
+                    <p id="dateError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <input type="hidden" id="loggedUserName" value="{{ auth()->user()->username ?? '' }}">
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Author Name</label>
-                    <input id="authorInput" type="text" name="author_name"
+                    <input id="authorInput"
+                           type="text"
+                           name="author_name"
                            class="add-post-input w-full border rounded px-3 py-2">
+                    <p id="authorError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="add-post-checkbox-container mb-4 flex items-center">
-                    <input id="useUserName" type="checkbox" class="add-post-checkbox mr-2" checked>
+                    <input id="useUserName"
+                           type="checkbox"
+                           class="add-post-checkbox mr-2"
+                           checked>
                     <label class="add-post-label text-sm">Use logged in user as author</label>
                 </div>
 
-                <button type="submit"
+                <button id="addSubmit"
+                        type="submit"
                         class="add-post-submit w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                     Publish
                 </button>
