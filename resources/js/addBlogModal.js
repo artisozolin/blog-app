@@ -34,7 +34,3 @@ if (useUserName && authorInput && loggedUserName) {
 
     useUserName.addEventListener('change', updateAuthorField);
 }
-
-
-
-
