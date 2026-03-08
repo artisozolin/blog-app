@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 id: 'addDate',
                 errorId: 'dateError',
+                required: true,
                 type: 'date'
             }
         ]
@@ -230,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 id: 'editDate',
                 errorId: 'editDateError',
+                required: true,
                 type: 'date'
             }
         ]

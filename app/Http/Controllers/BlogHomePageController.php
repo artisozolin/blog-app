@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 /**
  * Class BlogHomePageController
@@ -12,13 +13,16 @@ use Illuminate\Contracts\View\View;
 class BlogHomePageController extends Controller
 {
     /**
-     * @return View
+     * @param Request $request
+     * @return View|string
      */
-    public function index(): View
+    public function index(Request $request)
     {
-        $posts = Post::where('status', true)
-            ->orderBy('published_at', 'desc')
-            ->paginate(9);
+        $posts = Post::latest()->paginate(6);
+
+        if ($request->ajax()) {
+            return view('partials.postCards', compact('posts'))->render();
+        }
 
         return view('blogHomePage', compact('posts'));
     }
