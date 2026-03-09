@@ -70,6 +70,7 @@
                         <option value="1">Active</option>
                         <option value="0">Disabled</option>
                     </select>
+                    <p id="editStatusError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-input-container mb-3">

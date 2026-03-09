@@ -196,6 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 errorId: 'dateError',
                 required: true,
                 type: 'date'
+            },
+            {
+                id: 'addStatus',
+                errorId: 'addStatusError',
+                required: true
             }
         ]
     });
@@ -233,6 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 errorId: 'editDateError',
                 required: true,
                 type: 'date'
+            },
+            {
+                id: 'editStatus',
+                errorId: 'editStatusError',
+                required: true
             }
         ]
     });

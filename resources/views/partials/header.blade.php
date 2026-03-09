@@ -135,10 +135,13 @@
 
                 <div class="add-post-input-container mb-3">
                     <label class="add-post-label block text-sm font-medium mb-1">Status</label>
-                    <select name="status" class="add-post-select w-full border rounded px-3 py-2">
+                    <select id="addStatus"
+                            name="status"
+                            class="add-post-select w-full border rounded px-3 py-2">
                         <option value="1">Active</option>
                         <option value="0">Disabled</option>
                     </select>
+                    <p id="addStatusError" class="text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="add-post-input-container mb-3">

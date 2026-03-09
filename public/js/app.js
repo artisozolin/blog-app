@@ -2168,6 +2168,7 @@ editButtons.forEach(function (btn) {
     editStatus.value = btn.dataset.status;
     editDate.value = btn.dataset.date;
     editAuthor.value = btn.dataset.author;
+    console.log(editStatus.value);
     editForm.action = "/posts/".concat(id);
     deleteBtn.onclick = function () {
       if (!confirm("Delete this post?")) return;
@@ -2340,6 +2341,10 @@ document.addEventListener('DOMContentLoaded', function () {
       errorId: 'dateError',
       required: true,
       type: 'date'
+    }, {
+      id: 'addStatus',
+      errorId: 'addStatusError',
+      required: true
     }]
   });
   setupFormValidation({
@@ -2370,6 +2375,10 @@ document.addEventListener('DOMContentLoaded', function () {
       errorId: 'editDateError',
       required: true,
       type: 'date'
+    }, {
+      id: 'editStatus',
+      errorId: 'editStatusError',
+      required: true
     }]
   });
 });

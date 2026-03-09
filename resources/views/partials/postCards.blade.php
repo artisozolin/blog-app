@@ -1,6 +1,17 @@
 @foreach($posts as $post)
 
-    <div class="blog-post bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden">
+    <div class="blog-post relative bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden
+        @auth
+            {{ !$post->status ? 'ring-2 ring-yellow-400 ring-offset-2' : '' }}
+        @endauth
+    ">
+        @auth
+            @if(!$post->status)
+                <span class="absolute top-2 left-2 z-10 px-2 py-1 text-xs font-semibold text-yellow-900 bg-yellow-300 rounded shadow">
+                    Disabled
+                </span>
+            @endif
+        @endauth
         <a href="/blog/{{ $post->slug }}">
             @if($post->image)
                 <img src="{{ asset('storage/' . $post->image) }}"
@@ -38,7 +49,7 @@
                             data-id="{{ $post->id }}"
                             data-title="{{ $post->title }}"
                             data-content="{{ $post->content }}"
-                            data-status="{{ $post->status }}"
+                            data-status="{{ $post->status ? 1 : 0 }}"
                             data-date="{{ $post->published_at?->format('Y-m-d') }}"
                             data-author="{{ $post->author_name }}">
                             Edit
