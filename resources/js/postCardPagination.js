@@ -8,18 +8,16 @@ async function loadNextPage() {
     if (loading) return;
     loading = true;
 
-    loader.classList.remove("hidden");
+    loader.classList.add("open");
 
     try {
         const response = await fetch(`?page=${page}`, {
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
+            headers: { "X-Requested-With": "XMLHttpRequest" }
         });
         const data = await response.text();
 
         if (data.trim() === "") {
-            loader.classList.add("hidden");
+            loader.classList.remove("open");
             observer.disconnect();
             return;
         }
@@ -30,12 +28,12 @@ async function loadNextPage() {
 
         page++;
         loading = false;
-        loader.classList.add("hidden");
+        loader.classList.remove("open");
 
     } catch (err) {
         console.error("Error loading posts:", err);
         loading = false;
-        loader.classList.add("hidden");
+        loader.classList.remove("open");
     }
 }
 

@@ -1,3 +1,259 @@
+.blog-page {
+    @apply min-h-screen bg-gray-100;
+
+    .nav-bar {
+        @apply bg-white shadow;
+
+        .nav-bar-container {
+            @apply max-w-6xl mx-auto px-6 py-4 flex items-center justify-between;
+
+            .nav-bar-title {
+                @apply text-xl font-bold text-gray-800 hover:text-blue-600 transition;
+            }
+
+            .nav-bar-right-container {
+                @apply flex items-center gap-3;
+
+                .nav-bar-add-blog,
+                .nav-bar-logout,
+                .nav-bar-login {
+                    @apply px-4 py-2 text-white rounded-md text-sm font-medium transition;
+
+                    &.nav-bar-add-blog {
+                         @apply bg-green-600 hover:bg-green-700;
+                    }
+                    &.nav-bar-logout {
+                         @apply bg-red-600 hover:bg-red-700;
+                    }
+                    &.nav-bar-login {
+                         @apply bg-blue-600 hover:bg-blue-700;
+                    }
+                }
+            }
+        }
+    }
+
+    .blog-list-page {
+        @apply max-w-6xl mx-auto px-6 py-10;
+
+        .blog-list-container {
+            @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+
+            .blog-post {
+                @apply relative bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden flex flex-col;
+
+                &.disabled-ring {
+                     @apply ring-2 ring-yellow-400 ring-offset-2;
+                }
+
+                .disabled-badge {
+                    @apply absolute top-2 left-2 z-10 px-2 py-1 text-xs font-semibold text-yellow-900
+                    bg-yellow-300 rounded shadow;
+                }
+
+                .blog-post-image {
+                    @apply w-full h-48 object-cover;
+                }
+
+                .blog-post-data {
+                    @apply p-5 flex-1 flex flex-col h-full;
+                    display: grid;
+                    grid-template-rows: auto 1fr auto;
+                    gap: 0.5rem;
+
+                    .blog-post-date {
+                        @apply flex items-center justify-between text-sm text-gray-500;
+                    }
+
+                    .blog-post-title {
+                        @apply text-lg font-semibold text-gray-800 mb-2;
+                    }
+
+                    .blog-post-description {
+                        @apply text-gray-600 text-sm mb-4 line-clamp-3 overflow-hidden;
+                    }
+
+                    .blog-post-footer {
+                        @apply flex justify-between items-center mt-4;
+
+                        .blog-post-author {
+                            @apply text-xs text-gray-500;
+                        }
+
+                        .editPostBtn {
+                            @apply text-xs text-yellow-600 hover:underline;
+                        }
+
+                        .blog-post-cta {
+                            @apply text-blue-600 font-medium hover:underline;
+                        }
+                    }
+
+                    &.no-image .blog-post-middle {
+                         @apply flex flex-col justify-center items-center;
+                    }
+                }
+            }
+        }
+
+        .scroll-loader {
+            @apply flex justify-center py-10 hidden;
+
+            &.open {
+                 @apply flex;
+             }
+
+            .dot {
+                @apply w-2.5 h-2.5 bg-blue-600 rounded-full;
+            }
+        }
+    }
+
+    .login-modal {
+        @apply fixed inset-0 items-center justify-center bg-black bg-opacity-40 z-50;
+        display: none;
+
+        &.open {
+             display: flex;
+        }
+
+        .login-modal-container {
+            @apply bg-white rounded-lg shadow-md w-full max-w-sm p-6 relative;
+
+            .login-title {
+                @apply text-lg font-semibold mb-4;
+            }
+
+            .login-label {
+                @apply block text-sm font-medium mb-1;
+            }
+
+            .login-input {
+                @apply w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200;
+            }
+
+            .input-error-message {
+                @apply text-red-500 text-sm hidden;
+            }
+
+            .input-error-message.active {
+                @apply block;
+            }
+
+            .login-button {
+                @apply w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700
+                disabled:bg-gray-400 disabled:cursor-not-allowed transition;
+            }
+
+            .login-modal-close {
+                @apply absolute top-3 right-3 text-gray-500 hover:text-gray-700 font-bold;
+            }
+        }
+    }
+
+    .add-post-modal,
+    .edit-post-modal {
+        @apply fixed inset-0 items-center justify-center bg-black bg-opacity-40 z-50;
+        display: none;
+
+        &.open {
+             display: flex;
+        }
+
+        .add-post-container,
+        .edit-post-container {
+            @apply bg-white rounded-lg shadow-lg w-full max-w-xl p-6 relative;
+
+            .add-post-title,
+            .edit-post-title {
+                @apply text-lg font-semibold mb-4;
+            }
+
+            .add-post-input-container,
+            .edit-post-input-container {
+                @apply mb-3;
+
+                label {
+                    @apply block text-sm font-medium mb-1;
+                }
+
+                input,
+                textarea,
+                select {
+                    @apply w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200;
+                }
+
+                .input-error-message {
+                    @apply text-red-500 text-sm hidden;
+                }
+
+                .input-error-message.active {
+                    @apply block;
+                }
+            }
+
+            .add-post-checkbox-container {
+                @apply mb-4 flex items-center;
+
+                .add-post-checkbox {
+                    @apply mr-2;
+                }
+
+                label {
+                    @apply text-sm;
+                }
+            }
+
+            .add-post-submit,
+            .edit-post-submit {
+                @apply w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:bg-gray-400
+                disabled:cursor-not-allowed transition;
+            }
+
+            .edit-post-footer {
+                @apply flex gap-3;
+
+                .edit-post-delete {
+                    @apply flex-1 bg-red-600 text-white py-2 rounded hover:bg-red-700;
+                }
+            }
+
+            .add-post-close,
+            .edit-post-close {
+                @apply absolute top-3 right-3 text-gray-500 hover:text-gray-700 font-bold;
+            }
+        }
+    }
+
+    .blog-display-page {
+        @apply max-w-4xl mx-auto px-6 pb-12 pt-8;
+
+        .blog-display-title {
+            @apply text-3xl font-bold text-gray-800 mb-4 justify-self-center;
+        }
+
+        .blog-display-image {
+            @apply w-full h-auto rounded-lg mb-6 object-cover;
+        }
+
+        .blog-display-description {
+            @apply text-gray-700 leading-relaxed mb-6;
+        }
+
+        .blog-display-author {
+            @apply text-sm text-gray-500;
+
+            span {
+                @apply font-medium;
+            }
+        }
+
+        .blog-display-date {
+            @apply text-sm text-gray-400 mt-1;
+        }
+    }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

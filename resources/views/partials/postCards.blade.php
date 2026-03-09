@@ -1,64 +1,55 @@
 @foreach($posts as $post)
 
-    <div class="blog-post relative bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden
+    <div class="blog-post {{ $post->image ? '' : 'no-image' }}
         @auth
-            {{ !$post->status ? 'ring-2 ring-yellow-400 ring-offset-2' : '' }}
+            {{ !$post->status ? 'disabled-ring' : '' }}
         @endauth
     ">
         @auth
             @if(!$post->status)
-                <span class="absolute top-2 left-2 z-10 px-2 py-1 text-xs font-semibold text-yellow-900 bg-yellow-300 rounded shadow">
+                <span class="disabled-badge">
                     Disabled
                 </span>
             @endif
         @endauth
-        <a href="/blog/{{ $post->slug }}">
-            @if($post->image)
+        @if($post->image)
+            <a href="/blog/{{ $post->slug }}">
                 <img src="{{ asset('storage/' . $post->image) }}"
                      alt="{{ $post->title }}"
-                     class="blog-post-image w-full h-48 object-cover">
-            @else
-                <img src="https://placehold.co/600x400"
-                     alt="Placeholder image"
-                     class="blog-post-image w-full h-48 object-cover">
-            @endif
-        </a>
-        <div class="blog-post-data p-5">
-            <div class="blog-post-date flex items-center justify-between text-sm text-gray-500 mb-2">
-                <span>
-                    {{ $post->formattedDate() }}
-                </span>
-                <span>
-                    {{ $post->readTime() }}
-                </span>
+                     class="blog-post-image">
+            </a>
+        @endif
+        <div class="blog-post-data {{ $post->image ? '' : 'no-image' }}">
+            <div class="blog-post-date">
+                <span>{{ $post->formattedDate() }}</span>
+                <span>{{ $post->readTime() }}</span>
             </div>
-            <h2 class="blog-post-title text-lg font-semibold text-gray-800 mb-2">
-                {{ $post->title }}
-            </h2>
-            <p class="blog-post-description text-gray-600 text-sm mb-4 line-clamp-3">
-                {{ $post->content }}
-            </p>
-            <div class="blog-post-footer flex justify-between items-center">
-                            <span class="blog-post-author text-xs text-gray-500">
-                                By {{ $post->author_name }}
-                            </span>
+
+            @if(!$post->image)
+                <div class="blog-post-middle">
+                    <h2 class="blog-post-title">{{ $post->title }}</h2>
+                    <p class="blog-post-description">{{ $post->content }}</p>
+                </div>
+            @else
+                <h2 class="blog-post-title">{{ $post->title }}</h2>
+                <p class="blog-post-description">{{ $post->content }}</p>
+            @endif
+
+            <div class="blog-post-footer">
+                <span class="blog-post-author">By {{ $post->author_name }}</span>
                 <div class="flex items-center gap-3">
                     @auth
-                        <button
-                            class="editPostBtn text-xs text-yellow-600 hover:underline"
-                            data-id="{{ $post->id }}"
-                            data-title="{{ $post->title }}"
-                            data-content="{{ $post->content }}"
-                            data-status="{{ $post->status ? 1 : 0 }}"
-                            data-date="{{ $post->published_at?->format('Y-m-d') }}"
-                            data-author="{{ $post->author_name }}">
+                        <button class="editPostBtn"
+                                data-id="{{ $post->id }}"
+                                data-title="{{ $post->title }}"
+                                data-content="{{ $post->content }}"
+                                data-status="{{ $post->status ? 1 : 0 }}"
+                                data-date="{{ $post->published_at?->format('Y-m-d') }}"
+                                data-author="{{ $post->author_name }}">
                             Edit
                         </button>
                     @endauth
-                    <a href="/blog/{{ $post->slug }}"
-                       class="blog-post-cta text-blue-600 font-medium hover:underline">
-                        Read more
-                    </a>
+                    <a href="/blog/{{ $post->slug }}" class="blog-post-cta">Read more</a>
                 </div>
             </div>
         </div>

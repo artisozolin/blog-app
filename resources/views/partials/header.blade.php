@@ -8,35 +8,31 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <title>Blog app</title>
 </head>
-<body class="blog-page min-h-screen bg-gray-100">
+<body class="blog-page">
 
-    <header class="nav-bar bg-white shadow">
-        <nav class="nav-bar-container max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="{{ route('blog.index') }}" class="nav-bar-title text-xl font-bold text-gray-800 hover:text-blue-600
-            transition">
+    <header class="nav-bar">
+        <nav class="nav-bar-container">
+            <a href="{{ route('blog.index') }}" class="nav-bar-title">
                 Blog
             </a>
 
-            <div class="nav-bar-right-container flex items-center gap-3">
+            <div class="nav-bar-right-container">
                 @auth
                     <button id="addPostBtn"
-                            class="nav-bar-add-blog px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium
-                            hover:bg-green-700 transition">
+                            class="nav-bar-add-blog">
                             Add
                     </button>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                                class="nav-bar-logout px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium
-                                hover:bg-red-700 transition">
+                                class="nav-bar-logout">
                             Logout
                         </button>
                     </form>
                 @else
                     <button id="loginBtn"
-                            class="nav-bar-login px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium
-                            hover:bg-blue-700 transition">
+                            class="nav-bar-login">
                         Login
                     </button>
                 @endauth
@@ -45,136 +41,116 @@
         </nav>
     </header>
 
-    <div id="loginModal" class="login-modal fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 z-50">
-        <div class="login-modal-container bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
-            <button
-                id="closeModal"
-                class="login-modal-close absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-lg font-bold">
-                x
-            </button>
+    <div id="loginModal" class="login-modal">
+        <div class="login-modal-container">
+            <button id="closeModal" class="login-modal-close">x</button>
 
-            <h2 class="login-title text-lg font-semibold mb-4">Login</h2>
+            <h2 class="login-title">Login</h2>
 
             <form id="loginForm" method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <div class="login-username-container mb-4">
-                    <label class="login-title block text-sm font-medium text-gray-700 mb-1">Username</label>
-                    <input id="loginUsername"
-                           type="text"
-                           name="username"
-                           required
-                           class="login-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none
-                           focus:ring focus:ring-blue-200">
-                    <p id="loginUsernameError" class="text-red-500 text-sm hidden"></p>
+                <div class="login-username-container">
+                    <label class="login-label">Username</label>
+                    <input id="loginUsername" type="text" name="username" required class="login-input">
+                    <p id="loginUsernameError" class="input-error-message"></p>
                 </div>
 
-                <div class="login-password-container mb-4">
-                    <label class="login-title block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input id="loginPassword"
-                           type="password"
-                           name="password"
-                           required
-                           class="login-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none
-                           focus:ring focus:ring-blue-200">
-                    <p id="loginPasswordError" class="text-red-500 text-sm hidden"></p>
+                <div class="login-password-container">
+                    <label class="login-label">Password</label>
+                    <input id="loginPassword" type="password" name="password" required class="login-input">
+                    <p id="loginPasswordError" class="input-error-message"></p>
                 </div>
 
-                <button id="loginSubmit"
-                        type="submit"
-                        class="login-button w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
+                <button id="loginSubmit" type="submit" class="login-button">
                     Login
                 </button>
             </form>
-
         </div>
     </div>
 
     <div id="addPostModal"
-         class="add-post-modal fixed inset-0 hidden items-center justify-center bg-black bg-opacity-40 z-50">
-        <div class="add-post-container bg-white rounded-lg shadow-lg w-full max-w-xl p-6 relative">
+         class="add-post-modal">
+        <div class="add-post-container">
 
-            <button id="closeAddPost" class="add-post-close absolute top-3 right-3 text-gray-500
-            hover:text-gray-700 font-bold">
-                x
-            </button>
+            <button id="closeAddPost" class="add-post-close">x</button>
 
-            <h2 class="add-post-title text-lg font-semibold mb-4">Add Blog Post</h2>
+            <h2 class="add-post-title">Add Blog Post</h2>
 
             <form id="addPostForm" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
 
-                <div class="add-post-input-container mb-3">
-                    <label class="add-post-label block text-sm font-medium mb-1">Title</label>
+                <div class="add-post-input-container">
+                    <label class="add-post-label">Title</label>
                     <input id="addTitle"
                            type="text"
                            name="title"
                            required
-                           class="add-post-input w-full border rounded px-3 py-2">
-                    <p id="addTitleError" class="text-red-500 text-sm hidden"></p>
+                           class="add-post-input">
+                    <p id="addTitleError" class="input-error-message"></p>
                 </div>
 
-                <div class="add-post-input-container mb-3">
-                    <label class="add-post-label block text-sm font-medium mb-1">Image</label>
+                <div class="add-post-input-container">
+                    <label class="add-post-label">Image</label>
                     <input id="addImage"
                            type="file"
                            name="image"
                            accept="image/*"
-                           class="add-post-input w-full border rounded px-3 py-2">
-                    <p id="imageError" class="text-red-500 text-sm hidden"></p>
+                           class="add-post-input">
+                    <p id="imageError" class="input-error-message"></p>
                 </div>
 
-                <div class="add-post-input-container mb-3">
-                    <label class="add-post-label block text-sm font-medium mb-1">Content</label>
+                <div class="add-post-input-container">
+                    <label class="add-post-label">Content</label>
                     <textarea id="addContent"
                               name="content"
                               rows="5"
-                              class="add-post-input w-full border rounded px-3 py-2"></textarea>
-                    <p id="addContentError" class="text-red-500 text-sm hidden"></p>
+                              class="add-post-input"></textarea>
+                    <p id="addContentError" class="input-error-message"></p>
                 </div>
 
-                <div class="add-post-input-container mb-3">
-                    <label class="add-post-label block text-sm font-medium mb-1">Status</label>
+                <div class="add-post-input-container">
+                    <label class="add-post-label">Status</label>
                     <select id="addStatus"
                             name="status"
-                            class="add-post-select w-full border rounded px-3 py-2">
+                            class="add-post-select">
                         <option value="1">Active</option>
                         <option value="0">Disabled</option>
                     </select>
-                    <p id="addStatusError" class="text-red-500 text-sm hidden"></p>
+                    <p id="addStatusError" class="input-error-message"></p>
                 </div>
 
-                <div class="add-post-input-container mb-3">
-                    <label class="add-post-label block text-sm font-medium mb-1">Publish Date</label>
+                <div class="add-post-input-container">
+                    <label class="add-post-label">Publish Date</label>
                     <input id="addDate"
                            type="date"
                            name="published_at"
-                           class="add-post-input w-full border rounded px-3 py-2">
-                    <p id="dateError" class="text-red-500 text-sm hidden"></p>
+                           class="add-post-input">
+                    <p id="dateError" class="input-error-message"></p>
                 </div>
 
                 <input type="hidden" id="loggedUserName" value="{{ auth()->user()->username ?? '' }}">
 
-                <div class="add-post-input-container mb-3">
-                    <label class="add-post-label block text-sm font-medium mb-1">Author Name</label>
+                <div class="add-post-input-container">
+                    <label class="add-post-label">Author Name</label>
                     <input id="authorInput"
                            type="text"
                            name="author_name"
-                           class="add-post-input w-full border rounded px-3 py-2">
-                    <p id="authorError" class="text-red-500 text-sm hidden"></p>
+                           class="add-post-input">
+                    <p id="authorError" class="input-error-message"></p>
                 </div>
 
-                <div class="add-post-checkbox-container mb-4 flex items-center">
+                <div class="add-post-checkbox-container">
                     <input id="useUserName"
                            type="checkbox"
-                           class="add-post-checkbox mr-2"
+                           class="add-post-checkbox"
                            checked>
-                    <label class="add-post-label text-sm">Use logged in user as author</label>
+                    <label class="add-post-label">Use logged in user as author</label>
                 </div>
 
                 <button id="addSubmit"
                         type="submit"
-                        class="add-post-submit w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        class="add-post-submit">
                     Publish
                 </button>
 

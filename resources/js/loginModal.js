@@ -4,30 +4,26 @@ const closeModal = document.getElementById('closeModal');
 
 if (loginBtn && loginModal) {
     loginBtn.addEventListener('click', () => {
-        loginModal.classList.remove('hidden');
-        loginModal.classList.add('flex');
+        loginModal.classList.add('open');
     });
 }
 
 if (closeModal && loginModal) {
     closeModal.addEventListener('click', () => {
-        loginModal.classList.add('hidden');
-        loginModal.classList.remove('flex');
+        loginModal.classList.remove('open');
     });
 }
 
 if (loginModal) {
     loginModal.addEventListener('click', (e) => {
         if (e.target === loginModal) {
-            loginModal.classList.add('hidden');
-            loginModal.classList.remove('flex');
+            loginModal.classList.remove('open');
         }
     });
 }
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && loginModal) {
-        loginModal.classList.add('hidden');
-        loginModal.classList.remove('flex');
+        loginModal.classList.remove('open');
     }
 });
