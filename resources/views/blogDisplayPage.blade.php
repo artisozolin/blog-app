@@ -1,21 +1,21 @@
 @include('partials.header')
 
-    <main class="blog-display-page max-w-4xl mx-auto px-6 pb-12 pt-8">
-        <h1 class="blog-display-title text-3xl font-bold text-gray-800 mb-4 justify-self-center">
+    <main class="blog-display-page">
+        <h1 class="blog-display-title">
             {{ $post->title }}
         </h1>
         @if($post->image)
             <img src="{{ asset('storage/' . $post->image) }}"
                  alt="{{ $post->title }}"
-                 class="blog-display-image w-full h-auto rounded-lg mb-6 object-cover">
+                 class="blog-display-image">
         @endif
-        <div class="blog-display-description text-gray-700 leading-relaxed mb-6">
+        <div class="blog-display-description">
             {{ $post->content }}
         </div>
-        <p class="blog-display-author text-sm text-gray-500">
+        <p class="blog-display-author">
             Written by <span class="font-medium">{{ $post->author_name }}</span>
         </p>
-        <p class="blog-display-date text-sm text-gray-400 mt-1">
+        <p class="blog-display-date">
             Published on {{ $post->formattedDate() }}
         </p>
     </main>

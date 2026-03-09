@@ -18,7 +18,7 @@ class BlogHomePageController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::latest();
+        $query = Post::orderBy('published_at', 'desc');
 
         if (!auth()->check()) {
             $query->where('status', 1);

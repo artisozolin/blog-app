@@ -2068,13 +2068,12 @@ var authorInput = document.getElementById('authorInput');
 var loggedUserName = document.getElementById('loggedUserName');
 if (addBtn) {
   addBtn.addEventListener("click", function () {
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+    modal.classList.add("open");
   });
 }
 if (closeBtn) {
   closeBtn.addEventListener("click", function () {
-    modal.classList.add("hidden");
+    modal.classList.remove("open");
   });
 }
 if (useUserName && authorInput && loggedUserName) {
@@ -2168,7 +2167,6 @@ editButtons.forEach(function (btn) {
     editStatus.value = btn.dataset.status;
     editDate.value = btn.dataset.date;
     editAuthor.value = btn.dataset.author;
-    console.log(editStatus.value);
     editForm.action = "/posts/".concat(id);
     deleteBtn.onclick = function () {
       if (!confirm("Delete this post?")) return;
@@ -2189,13 +2187,11 @@ editButtons.forEach(function (btn) {
       document.body.appendChild(form);
       form.submit();
     };
-    editModal.classList.remove('hidden');
-    editModal.classList.add('flex');
+    editModal.classList.add('open');
   });
 });
 closeEditPost.addEventListener('click', function () {
-  editModal.classList.add('hidden');
-  editModal.classList.remove('flex');
+  editModal.classList.remove('open');
 });
 
 /***/ },
@@ -2239,10 +2235,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!isValid && touched[input.id]) {
       input.classList.add('invalid-input');
       errorElement.textContent = errorMessage;
-      errorElement.classList.remove('hidden');
+      errorElement.classList.add('active');
     } else {
       input.classList.remove('invalid-input');
-      errorElement.classList.add('hidden');
+      errorElement.classList.remove('active');
     }
     return isValid;
   }
@@ -2396,28 +2392,24 @@ var loginModal = document.getElementById('loginModal');
 var closeModal = document.getElementById('closeModal');
 if (loginBtn && loginModal) {
   loginBtn.addEventListener('click', function () {
-    loginModal.classList.remove('hidden');
-    loginModal.classList.add('flex');
+    loginModal.classList.add('open');
   });
 }
 if (closeModal && loginModal) {
   closeModal.addEventListener('click', function () {
-    loginModal.classList.add('hidden');
-    loginModal.classList.remove('flex');
+    loginModal.classList.remove('open');
   });
 }
 if (loginModal) {
   loginModal.addEventListener('click', function (e) {
     if (e.target === loginModal) {
-      loginModal.classList.add('hidden');
-      loginModal.classList.remove('flex');
+      loginModal.classList.remove('open');
     }
   });
 }
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && loginModal) {
-    loginModal.classList.add('hidden');
-    loginModal.classList.remove('flex');
+    loginModal.classList.remove('open');
   }
 });
 
@@ -2454,7 +2446,7 @@ function _loadNextPage() {
           return _context.a(2);
         case 1:
           loading = true;
-          loader.classList.remove("hidden");
+          loader.classList.add("open");
           _context.p = 2;
           _context.n = 3;
           return fetch("?page=".concat(page), {
@@ -2472,7 +2464,7 @@ function _loadNextPage() {
             _context.n = 5;
             break;
           }
-          loader.classList.add("hidden");
+          loader.classList.remove("open");
           observer.disconnect();
           return _context.a(2);
         case 5:
@@ -2484,7 +2476,7 @@ function _loadNextPage() {
           postsContainer.insertAdjacentHTML("beforeend", data);
           page++;
           loading = false;
-          loader.classList.add("hidden");
+          loader.classList.remove("open");
           _context.n = 8;
           break;
         case 7:
@@ -2492,7 +2484,7 @@ function _loadNextPage() {
           _t = _context.v;
           console.error("Error loading posts:", _t);
           loading = false;
-          loader.classList.add("hidden");
+          loader.classList.remove("open");
         case 8:
           return _context.a(2);
       }

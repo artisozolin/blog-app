@@ -9,11 +9,11 @@
 
         <div id="scrollTrigger"></div>
 
-        <div id="scrollLoader" class="flex justify-center py-10 hidden">
+        <div id="scrollLoader" class="scroll-loader">
             <div class="flex items-center gap-2">
-                <div class="w-2.5 h-2.5 bg-blue-600 rounded-full animate-bounce"></div>
-                <div class="w-2.5 h-2.5 bg-blue-600 rounded-full animate-bounce [animation-delay:150ms]"></div>
-                <div class="w-2.5 h-2.5 bg-blue-600 rounded-full animate-bounce [animation-delay:300ms]"></div>
+                <div class="dot animate-bounce"></div>
+                <div class="dot animate-bounce [animation-delay:150ms]"></div>
+                <div class="dot animate-bounce [animation-delay:300ms]"></div>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
                            type="text"
                            name="title"
                            class="edit-post-input w-full border rounded px-3 py-2">
-                    <p id="editTitleError" class="text-red-500 text-sm hidden"></p>
+                    <p id="editTitleError" class="input-error-message text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-input-container mb-3">
@@ -50,7 +50,7 @@
                            name="image"
                            accept="image/*"
                            class="edit-post-input w-full border rounded px-3 py-2">
-                    <p id="editImageError" class="text-red-500 text-sm hidden"></p>
+                    <p id="editImageError" class="input-error-message text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-input-container mb-3">
@@ -59,7 +59,7 @@
                               name="content"
                               rows="5"
                               class="edit-post-input w-full border rounded px-3 py-2"></textarea>
-                    <p id="editContentError" class="text-red-500 text-sm hidden"></p>
+                    <p id="editContentError" class="input-error-message text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-input-container mb-3">
@@ -70,7 +70,7 @@
                         <option value="1">Active</option>
                         <option value="0">Disabled</option>
                     </select>
-                    <p id="editStatusError" class="text-red-500 text-sm hidden"></p>
+                    <p id="editStatusError" class="input-error-message text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-input-container mb-3">
@@ -79,7 +79,7 @@
                            type="date"
                            name="published_at"
                            class="edit-post-input w-full border rounded px-3 py-2">
-                    <p id="editDateError" class="text-red-500 text-sm hidden"></p>
+                    <p id="editDateError" class="input-error-message text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-input-container mb-3">
@@ -88,7 +88,7 @@
                            type="text"
                            name="author_name"
                            class="edit-post-input w-full border rounded px-3 py-2">
-                    <p id="editAuthorError" class="text-red-500 text-sm hidden"></p>
+                    <p id="editAuthorError" class="input-error-message text-red-500 text-sm hidden"></p>
                 </div>
 
                 <div class="edit-post-footer flex gap-3">

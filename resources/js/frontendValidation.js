@@ -51,10 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isValid && touched[input.id]) {
             input.classList.add('invalid-input');
             errorElement.textContent = errorMessage;
-            errorElement.classList.remove('hidden');
+            errorElement.classList.add('active');
         } else {
             input.classList.remove('invalid-input');
-            errorElement.classList.add('hidden');
+            errorElement.classList.remove('active');
         }
 
         return isValid;

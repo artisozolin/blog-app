@@ -3,19 +3,15 @@ const editModal = document.getElementById('editPostModal');
 const closeEditPost = document.getElementById('closeEditPost');
 
 const editForm = document.getElementById('editPostForm');
-
 const editTitle = document.getElementById('editTitle');
 const editContent = document.getElementById('editContent');
 const editStatus = document.getElementById('editStatus');
 const editDate = document.getElementById('editDate');
 const editAuthor = document.getElementById('editAuthor');
-
 const deleteBtn = document.getElementById('deletePostBtn');
 
 editButtons.forEach(btn => {
-
     btn.addEventListener('click', () => {
-
         const id = btn.dataset.id;
 
         editTitle.value = btn.dataset.title;
@@ -27,7 +23,6 @@ editButtons.forEach(btn => {
         editForm.action = `/posts/${id}`;
 
         deleteBtn.onclick = () => {
-
             if (!confirm("Delete this post?")) return;
 
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -53,14 +48,10 @@ editButtons.forEach(btn => {
             form.submit();
         };
 
-        editModal.classList.remove('hidden');
-        editModal.classList.add('flex');
-
+        editModal.classList.add('open');
     });
-
 });
 
 closeEditPost.addEventListener('click', () => {
-    editModal.classList.add('hidden');
-    editModal.classList.remove('flex');
+    editModal.classList.remove('open');
 });

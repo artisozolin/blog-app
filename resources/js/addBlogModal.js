@@ -7,14 +7,13 @@ const loggedUserName = document.getElementById('loggedUserName');
 
 if (addBtn) {
     addBtn.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
+        modal.classList.add("open");
     });
 }
 
 if (closeBtn) {
     closeBtn.addEventListener("click", () => {
-        modal.classList.add("hidden");
+        modal.classList.remove("open");
     });
 }
 
