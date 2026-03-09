@@ -18,7 +18,13 @@ class BlogHomePageController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(6);
+        $query = Post::latest();
+
+        if (!auth()->check()) {
+            $query->where('status', 1);
+        }
+
+        $posts = $query->paginate(6);
 
         if ($request->ajax()) {
             return view('partials.postCards', compact('posts'))->render();
