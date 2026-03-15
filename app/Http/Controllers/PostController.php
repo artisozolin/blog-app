@@ -2,23 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048',
-            'content' => 'required|string',
-            'author_name' => 'nullable|string|max:255',
-            'status' => 'required|boolean',
-            'published_at' => 'nullable|date',
-        ]);
+        $data = $request->validated();
 
         $slug = Str::slug($data['title']);
         $count = Post::where('slug', 'like', "{$slug}%")->count();
@@ -43,16 +36,9 @@ class PostController extends Controller
         return redirect()->route('blog.index');
     }
 
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'status' => 'required|boolean',
-            'author_name' => 'nullable|string|max:255',
-            'published_at' => 'nullable|date',
-            'image' => 'nullable|image|max:2048',
-        ]);
+        $data = $request->validated();
 
         if ($post->title !== $data['title']) {
 
