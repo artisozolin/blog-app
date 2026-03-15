@@ -1,5 +1,8 @@
-@include('partials.header')
+@extends('layouts.app')
 
+@section('title', $post->title)
+
+@section('content')
     <main class="blog-display-page">
         <h1 class="blog-display-title">
             {{ $post->title }}
@@ -19,5 +22,4 @@
             Published on {{ $post->formattedDate() }}
         </p>
     </main>
-
-@include('partials.footer')
+@endsection
